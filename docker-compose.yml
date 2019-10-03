@@ -9,7 +9,6 @@ services:
                 ports:
                         - "80:80"
                         - "443:443"
-                        - "2015:2015"
                 environment:
                         - CADDYPATH=/etc/caddycerts
                         - ACME_AGREE=true
