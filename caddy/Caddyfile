@@ -1,0 +1,6 @@
+bw.{$DOMAIN} {
+        proxy / bitwarden:80 {
+                websocket
+                transparent
+        }
+}
