@@ -7,7 +7,7 @@ This is a simple "bring-up" ```docker-compose``` file to get a VPS up and runni
 1. A VPS
 2. Docker and Docker-Compose already configured
 
-## Install
+## Install
 
 ```
 git clone https://github.com/eliseomartelli/bitwarden_vps_docker
