@@ -1,5 +1,7 @@
 - hosts: hosts
   become: true
+  vars_files:
+    - variables/default.yaml
   tasks:
     - name: Ensure prerequisites installed for docker
       apt:
@@ -23,24 +25,42 @@
         name: docker-ce
         update_cache: yes
 
-    - name: Ensure prerequisites installed for docker compose
-      apt:
-        name:
-          - python3-pip
-          - python3-setuptools
-          - virtualenv
-        update_cache: yes
-
-    - name: Ensure docker-compose is installed
+    - name: Ensure python docker is installed
       pip:
-        name: docker-compose
+        name: 
+          - docker
 
     - name: Ensure configuration is present
       copy:
         src: ./config/
         dest: ./data/bitwarden_vps_docker/
-    
-    - name: Ensure project is running
-      shell: docker-compose up -d --remove-orphans
-      args: 
-        chdir: ./data/bitwarden_vps_docker/
+
+    - name: Create docker container for caddy
+      docker_container:
+        name: caddy
+        image: abiosoft/caddy
+        state: started
+        env:
+          CADDYPATH: /etc/caddycerts
+          ACME_AGREE: "true"
+          DOMAIN: "{{ default.domain }}"
+        volumes:
+          - ./caddy:/etc/caddycerts
+          - ./data/bitwarden_vps_docker/caddy/Caddyfile:/etc/Caddyfile
+        ports:
+          - 80:80
+          - 443:443
+    - name: Create docker container for bitwarden
+      docker_container:
+        name: bitwarden
+        image: bitwardenrs/server
+        state: started
+        volumes:
+          - ./data/bitwarden_vps_docker/bitwarden:/data
+
+    - name: Ensure containers are connected to correct network
+      docker_network:
+        name: bitwarden_vps_docker
+        connected:
+          - bitwarden
+          - caddy
