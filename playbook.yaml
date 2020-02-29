@@ -1,0 +1,46 @@
+- hosts: hosts
+  become: true
+  tasks:
+    - name: Ensure prerequisites installed for docker
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg2
+          - software-properties-common
+        update_cache: yes
+
+    - name: Ensure Docker GPG Key is present
+      apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+
+    - name: Ensure Docker APT Repository is present
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/{{ansible_distribution|lower}} {{ansible_distribution_release}} stable
+
+    - name: Ensure Docker is intalled
+      apt:
+        name: docker-ce
+        update_cache: yes
+
+    - name: Ensure prerequisites installed for docker compose
+      apt:
+        name:
+          - python3-pip
+          - python3-setuptools
+          - virtualenv
+        update_cache: yes
+
+    - name: Ensure docker-compose is installed
+      pip:
+        name: docker-compose
+
+    - name: Ensure configuration is present
+      copy:
+        src: ./config/
+        dest: ./data/bitwarden_vps_docker/
+    
+    - name: Ensure project is running
+      shell: docker-compose up -d --remove-orphans
+      args: 
+        chdir: ./data/bitwarden_vps_docker/
