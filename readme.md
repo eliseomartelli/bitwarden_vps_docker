@@ -10,7 +10,7 @@ Powered by ansible.
 
 ## Install
 
-```
+```bash 
 # Clone the repo
 git clone https://github.com/eliseomartelli/bitwarden_vps_docker
 
