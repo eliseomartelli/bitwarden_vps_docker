@@ -1,0 +1,30 @@
+---
+- name: Create docker container for caddy
+  docker_container:
+    name: caddy
+    image: abiosoft/caddy
+    state: started
+    env:
+      CADDYPATH: /etc/caddycerts
+      ACME_AGREE: "true"
+      DOMAIN: "{{ default.domain }}"
+    volumes:
+      - ./caddy:/etc/caddycerts
+      - ./data/bitwarden_vps_docker/caddy/Caddyfile:/etc/Caddyfile
+    ports:
+      - 80:80
+      - 443:443
+- name: Create docker container for bitwarden
+  docker_container:
+    name: bitwarden
+    image: bitwardenrs/server
+    state: started
+    volumes:
+      - ./data/bitwarden_vps_docker/bitwarden:/data
+
+- name: Ensure containers are connected to correct network
+  docker_network:
+    name: bitwarden_vps_docker
+    connected:
+      - bitwarden
+      - caddy
