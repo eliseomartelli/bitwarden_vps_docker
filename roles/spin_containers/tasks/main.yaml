@@ -4,6 +4,7 @@
     name: caddy
     image: abiosoft/caddy
     state: started
+    pull: "{{ default.pull }}"
     env:
       CADDYPATH: /etc/caddycerts
       ACME_AGREE: "true"
@@ -18,6 +19,7 @@
     name: bitwarden
     image: bitwardenrs/server
     state: started
+    pull: "{{ default.pull }}"
     volumes:
       - ./data/bitwarden_vps_docker/bitwarden:/data
 
