@@ -7,7 +7,6 @@
     env:
       CADDYPATH: /etc/caddycerts
       ACME_AGREE: "true"
-      DOMAIN: "{{ default.domain }}"
     volumes:
       - ./caddy:/etc/caddycerts
       - ./data/bitwarden_vps_docker/caddy/Caddyfile:/etc/Caddyfile
