@@ -1,16 +1,34 @@
 # Bitwarden(rs) VPS
 
-This is a simple "bring-up" ```docker-compose``` file to get a VPS up and running with an instance of Bitwarden(rs).
+Setups a machine to serve bitwarden(rs) using caddy as a proxy.
+Powered by ansible.
 
 ## Prerequisites
 
-1. A VPS
-2. Docker and Docker-Compose already configured
+1. A server
+2. Ansible installed on your machine.
 
 ## Install
 
 ```
+# Clone the repo
 git clone https://github.com/eliseomartelli/bitwarden_vps_docker
+
+# Enter the repo directory
 cd bitwarden_vps_docker
-docker-compose up -d
+
+# Copy the default variable file
+cp variables/default.yaml.stub variables/default.yaml
+
+# Edit the default variable file
+vi variables/default.yaml # Put your domain name here
+
+# Copy the inventory file
+cp inventory.stub inventory
+
+# Edit the inventory file
+vi inventory # Put your inventory here
+
+# Run the playbook
+ansible-playbook -i inventory -k playbook.yaml
 ```
