@@ -5,6 +5,7 @@
     image: abiosoft/caddy
     state: started
     pull: "{{ default.pull }}"
+    restart_policy: always
     env:
       CADDYPATH: /etc/caddycerts
       ACME_AGREE: "true"
@@ -20,6 +21,7 @@
     image: bitwardenrs/server
     state: started
     pull: "{{ default.pull }}"
+    restart_policy: always
     volumes:
       - ./data/bitwarden_vps_docker/bitwarden:/data
 
