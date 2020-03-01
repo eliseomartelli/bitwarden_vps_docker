@@ -1,5 +1,5 @@
 ---
-- name: Ensure configuration is present
+- name: Ensure configuration is updated
   template:
-    src: ./config/caddy/Caddyfile.j2
+    src: ../../../config/caddy/Caddyfile.j2
     dest: ./data/bitwarden_vps_docker/caddy/Caddyfile
