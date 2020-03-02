@@ -4,7 +4,7 @@
     name: caddy
     image: abiosoft/caddy
     state: started
-    pull: "{{ default.pull }}"
+    pull: "{{ default.pull | default(no, true) }}"
     restart_policy: always
     env:
       CADDYPATH: /etc/caddycerts
@@ -20,7 +20,7 @@
     name: bitwarden
     image: bitwardenrs/server
     state: started
-    pull: "{{ default.pull }}"
+    pull: "{{ default.pull | default(no, true) }}"
     restart_policy: always
     volumes:
       - ./data/bitwarden_vps_docker/bitwarden:/data
