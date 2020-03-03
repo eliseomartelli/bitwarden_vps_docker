@@ -1,5 +1,7 @@
 # Bitwarden(rs) VPS
 
+[![Build Status](https://travis-ci.org/eliseomartelli/bitwarden_vps_docker.svg?branch=master)](https://travis-ci.org/eliseomartelli/bitwarden_vps_docker)
+
 Setups a machine to serve bitwarden(rs) using caddy as a proxy.
 Powered by ansible.
 
