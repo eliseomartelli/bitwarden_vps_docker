@@ -1,9 +1,12 @@
 language: python
 python:
   - "3.8"
+befire_install:
+  - mv variables/default.yaml.stub variables/default.yaml
+  - mv inventory.stub inventory
 
 install:
   - pip install ansible
 
 script:
-  - ansible-playbook playbook.yaml -i inventory.stub --syntax-check
+  - ansible-playbook playbook.yaml -i inventory --syntax-check
