@@ -1,0 +1,15 @@
+---
+- name: Ensure configuration is updated
+  template:
+    src: ../../../config/duckdns/duck.conf.j2
+    dest: ./data/duckdns/duck.conf
+
+- name: Create docker container for duckdns
+  docker_container:
+    name: duckdns
+    image: coppit/duckdns
+    state: started
+    pull: "{{ default.pull | default(no, true) }}"
+    restart_policy: always
+    volumes:
+      - ./data/duckdns:/config
