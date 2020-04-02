@@ -1,7 +1,7 @@
 language: python
 python:
   - "3.8"
-befire_install:
+before_install:
   - mv variables/default.yaml.stub variables/default.yaml
   - mv inventory.stub inventory
 
