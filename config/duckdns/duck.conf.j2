@@ -1,0 +1,6 @@
+# Without .duckdns.org
+DOMAINS='{{ default.duckdns_domain | default( default.domain | replace(".duckdns.org","")) }}'
+TOKEN='{{ default.duckdns_token }}'
+# Examples: 5m, 5h, 5d. Minimum is 5 minutes.
+INTERVAL='30m'
+IPV6=no
