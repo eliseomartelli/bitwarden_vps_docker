@@ -9,3 +9,6 @@
       tags: configure
     - role: spin_containers
       tags: run
+    - role: duckdns
+      tags: ddns
+      when: default.ddns == true
