@@ -1,0 +1,6 @@
+default:
+  domain: example.com
+  pull: yes
+  ddns: true
+  duckdns_token: deadbeef-00000-00000
+  duckdns_domain: a_domain
