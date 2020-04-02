@@ -14,3 +14,14 @@ jobs:
         - mv variables/default.yaml.stub variables/default.yaml
       script:
         - ansible-playbook playbook.yaml -i inventory --syntax-check
+    - stage: check-ddns
+      before_script:
+        - mv variables/default.yaml.ddns_no_explicit_domain.stub variables/default.yaml
+      script:
+        - ansible-playbook playbook.yaml -i inventory --syntax-check
+    - stage: check-ddns-custom
+      before_script:
+        - mv variables/default.yaml.ddns_explicit_domain.stub variables/default.yaml
+      script:
+        - ansible-playbook playbook.yaml -i inventory --syntax-check
+        
