@@ -21,6 +21,12 @@
     name: docker-ce
     update_cache: yes
 
+- name: Ensure Docker service is started
+  service:
+    name: docker
+    state: started
+    enabled: true
+
 - name: Ensure python docker is installed
   pip:
     name: 
