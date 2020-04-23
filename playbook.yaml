@@ -11,4 +11,4 @@
       tags: run
     - role: duckdns
       tags: ddns
-      when: default.ddns == true
+      when: default.ddns
