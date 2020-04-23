@@ -42,7 +42,7 @@ jobs:
           cp inventory.stub inventory
       - name: Installing ansible
         run: |
-          apt-get install ansible
+          sudo apt-get install ansible
       - name: Running ansible-playbook syntax check
         run: |
           ansible-playbook playbook.yaml -i inventory --syntax-check
