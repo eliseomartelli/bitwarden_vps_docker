@@ -29,5 +29,5 @@
 
 - name: Ensure python docker is installed
   pip:
-    name: 
+    name:
       - docker
