@@ -1,3 +1,4 @@
+---
 language: python
 python:
   - "3.8"
@@ -7,26 +8,38 @@ before_install:
 install:
   - pip install ansible
   - pip install ansible-lint
+  - pip install yamllint
 
 jobs:
   include:
     - stage: simple-check
       before_script:
-        - mv variables/default.yaml.stub variables/default.yaml
+        - >
+          mv variables/default.yaml.stub
+          variables/default.yaml
       script:
         - ansible-playbook playbook.yaml -i inventory --syntax-check
     - stage: check-ddns
       before_script:
-        - mv variables/default.yaml.ddns_no_explicit_domain.stub variables/default.yaml
+        - >
+          mv variables/default.yaml.ddns_no_explicit_domain.stub
+          variables/default.yaml
       script:
         - ansible-playbook playbook.yaml -i inventory --syntax-check
     - stage: check-ddns-custom
       before_script:
-        - mv variables/default.yaml.ddns_explicit_domain.stub variables/default.yaml
+        - >
+          mv variables/default.yaml.ddns_explicit_domain.stub
+          variables/default.yaml
       script:
         - ansible-playbook playbook.yaml -i inventory --syntax-check
-    - stage: check-lint
+    - stage: ansible-lint
       before_script:
-        - mv variables/default.yaml.stub variables/default.yaml
+        - >
+          mv variables/default.yaml.stub
+          variables/default.yaml
       script:
         - ansible-lint playbook.yaml
+    - stage: yaml-lint
+      script:
+        - yamllint . && yamllint variables/*.stub
