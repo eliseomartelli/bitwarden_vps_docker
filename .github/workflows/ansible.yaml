@@ -16,3 +16,12 @@ jobs:
         uses: "docker://pipelinecomponents/yamllint:latest"
         with:
           args: yamllint . && yamllint variables/*.stub
+
+  ansiblelint:
+    runs-on: ubuntu-latest
+      - name: Getting configuration from GitHub
+        uses: actions/checkout@v1
+      - name: Running ansible-lint
+        uses: "docker://pipelinecomponents/ansible-lint:latest"
+        with:
+          args: ansible-lint playbook.yaml
