@@ -15,8 +15,12 @@ jobs:
       - name: Running yamllint
         uses: "docker://pipelinecomponents/yamllint:latest"
         with:
-          args: yamllint . && yamllint variables/*.stub
-
+          args: yamllint .
+      - name: Running yamllint on variables
+        uses: "docker://pipelinecomponents/yamllint:latest"
+        with:
+          args: yamllint variables/*.stub
+    
   ansiblelint:
     runs-on: ubuntu-latest
     steps:
