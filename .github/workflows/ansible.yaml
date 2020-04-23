@@ -20,7 +20,7 @@ jobs:
         uses: "docker://pipelinecomponents/yamllint:latest"
         with:
           args: yamllint variables/*.stub
-    
+
   ansiblelint:
     runs-on: ubuntu-latest
     steps:
