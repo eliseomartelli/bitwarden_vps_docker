@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "group": "test",
+            "label": "syntax-check",
+            "type": "shell",
+            "command": "ansible-playbook playbook.yaml -i inventory --syntax-check"
+        },
+        {
+            "group": "test",
+            "label": "ansible-lint",
+            "type": "shell",
+            "command": "ansible-lint playbook.yaml"
+        },
+        {
+            "group": "test",
+            "label": "yaml-lint",
+            "type": "shell",
+            "command": "yamllint . && yamllint variables/*.stub"
+        },
+    ]
+}
