@@ -19,6 +19,7 @@ jobs:
 
   ansiblelint:
     runs-on: ubuntu-latest
+    steps:
       - name: Getting configuration from GitHub
         uses: actions/checkout@v1
       - name: Running ansible-lint
