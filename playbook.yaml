@@ -1,3 +1,4 @@
+---
 - hosts: hosts
   become: true
   vars_files:

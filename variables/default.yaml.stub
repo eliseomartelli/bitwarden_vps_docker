@@ -1,4 +1,5 @@
+---
 default:
   domain: example.com
-  pull: yes
+  pull: true
   ddns: false
