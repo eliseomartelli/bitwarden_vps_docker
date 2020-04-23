@@ -6,6 +6,7 @@ before_install:
 
 install:
   - pip install ansible
+  - pip install ansible-lint
 
 jobs:
   include:
@@ -24,4 +25,8 @@ jobs:
         - mv variables/default.yaml.ddns_explicit_domain.stub variables/default.yaml
       script:
         - ansible-playbook playbook.yaml -i inventory --syntax-check
-        
+    - stage: check-lint
+      before_script:
+        - mv variables/default.yaml.stub variables/default.yaml
+      script:
+        - ansible-lint playbook.yaml
