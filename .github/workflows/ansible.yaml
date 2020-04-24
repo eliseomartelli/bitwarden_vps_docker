@@ -1,48 +1,26 @@
 ---
-name: Ansible CI
+name: Continuous Integration
 
 # yamllint disable-line rule:truthy
-on:
-  push:
-  pull_request:
+on: [push, pull_request]
 
 jobs:
-  yamllint:
+  linting:
+    name: Linting
     runs-on: ubuntu-latest
     steps:
-      - name: Getting configuration from GitHub
+      - name: Checking out code from GitHub
         uses: actions/checkout@v1
-      - name: Running yamllint
-        uses: "docker://pipelinecomponents/yamllint:latest"
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
         with:
-          args: yamllint .
-      - name: Running yamllint on variables
-        uses: "docker://pipelinecomponents/yamllint:latest"
-        with:
-          args: yamllint variables/*.stub
-
-  ansiblelint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Getting configuration from GitHub
-        uses: actions/checkout@v1
-      - name: Running ansible-lint
-        uses: "docker://pipelinecomponents/ansible-lint:latest"
-        with:
-          args: ansible-lint playbook.yaml
-
-  ansiblesyntax:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Getting configuration from GitHub
-        uses: actions/checkout@v1
-      - name: Copy stub variable
+          python-version: 3.7
+      - name: Install dependencies
         run: |
-          cp variables/default.yaml.stub variables/default.yaml
-          cp inventory.stub inventory
-      - name: Installing ansible
+          python -m pip install --upgrade pip setuptools wheel
+          pip install pre-commit
+          pip list
+          pre-commit --version
+      - name: Run pre-commit on all files
         run: |
-          sudo apt-get install ansible
-      - name: Running ansible-playbook syntax check
-        run: |
-          ansible-playbook playbook.yaml -i inventory --syntax-check
+          pre-commit run --all-files --show-diff-on-failure
